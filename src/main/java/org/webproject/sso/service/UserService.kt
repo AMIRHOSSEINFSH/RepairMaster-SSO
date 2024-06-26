@@ -22,7 +22,8 @@ import java.util.*
 class UserService @Autowired constructor(
     private val userRepository: UserRepository,
     private val sessionRepository: SessionRepository,
-    private val keyExchange: KeyExchange
+    private val keyExchange: KeyExchange,
+    private val emailService: EmailService
 )
 {
 
@@ -94,8 +95,8 @@ class UserService @Autowired constructor(
 
         if(itSession.isOtpVerified) throw DefaultSupportedException("You have Already Verified Your Otp Authentication")
 
-         //TODO send otp via email
-        val tmpCode = 1000
+        val tmpCode = Random().nextInt(1000, 10000)
+        emailService.sendEmail(userDb.email,"Otp Verification","Code is: $tmpCode")
         return TokenManagement.generateToken(userId, TokenType.VERIFY,deviceModel, tmpCode)
 
     }

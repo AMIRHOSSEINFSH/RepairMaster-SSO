@@ -14,6 +14,7 @@ import org.webproject.sso.model.dto.UserDto
 import org.webproject.sso.model.dto.otp.OtpRequestModel
 import org.webproject.sso.model.dto.response.AuthenticationResponseModel
 import org.webproject.sso.model.dto.response.RegisterUserResponse
+import org.webproject.sso.service.SessionOptService
 import org.webproject.sso.service.UserService
 import org.webproject.sso.util.DEVICE_MODEL_HEADER
 import org.webproject.sso.util.annotations.FreeAuthentication
@@ -25,7 +26,7 @@ import org.webproject.sso.util.authentication.getTokenFromHeader
 class UserController @Autowired constructor(private val userService: UserService) {
 
     @Autowired lateinit var exchange : KeyExchange
-
+//    @Autowired lateinit var ser: SessionOptService
     @PostMapping("/exchange")
     fun exchange(@RequestBody otherSidePublicKey: Int): Int {
         val shared = exchange.calculateShareSecret(otherSidePublicKey)
@@ -83,6 +84,5 @@ class UserController @Autowired constructor(private val userService: UserService
         userService.logOut(token)
         return ResponseHandler.generateResponse("Ok",HttpStatus.OK,null)
     }
-
 
 }

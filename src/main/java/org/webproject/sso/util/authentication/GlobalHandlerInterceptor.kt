@@ -7,6 +7,8 @@ import org.springframework.web.method.HandlerMethod
 import org.springframework.web.servlet.HandlerInterceptor
 import org.webproject.sso.authentication.TokenManagement.parseToken
 import org.webproject.sso.util.DEVICE_MODEL_HEADER
+import org.webproject.sso.util.HASH_HEADER
+import org.webproject.sso.util.NONCE_HEADER
 import org.webproject.sso.util.TOKEN_HEADER
 import org.webproject.sso.util.annotations.FreeAuthentication
 import java.time.Instant
@@ -24,13 +26,25 @@ class GlobalHandlerInterceptor: HandlerInterceptor {
                 request.getHeader(TOKEN_HEADER)?.let { itToken->
                     val token = parseToken(itToken)
                     request.setAttribute("token",token)
-                    return LocalDateTime.now().isBefore(LocalDateTime.ofInstant(Instant.ofEpochSecond(token.lifeTime), ZoneId.systemDefault()))
+                    val isNotExpired = LocalDateTime.now().isBefore(LocalDateTime.ofInstant(Instant.ofEpochSecond(token.lifeTime), ZoneId.systemDefault()))
+                    if(!isNotExpired) return false
+
+                    /*val hashMsg = request.getHeader(HASH_HEADER)
+                    val nonce = request.getHeader(NONCE_HEADER)
+                    val body = request
+                    checkHashingIntegrity(hashMsg,nonce.toLong(),body)*/
                 }?: return false
                 //TODO Check also integrity
+
             }
         }
         return true;
 
+    }
+
+    private fun checkHashingIntegrity(hashData: String,nonce: Long, body: String): Boolean {
+
+        return true
     }
 
 }
