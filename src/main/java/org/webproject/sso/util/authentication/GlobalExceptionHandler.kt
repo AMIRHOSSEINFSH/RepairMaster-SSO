@@ -7,8 +7,8 @@ import org.springframework.validation.ObjectError
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
-import org.webproject.sso.SupportedException
-import org.webproject.sso.util.authentication.ResponseHandler.generateResponse
+import org.webproject.responsewrapper.custom.exception.*
+import org.webproject.responsewrapper.custom.response.ResponseHandler.generateResponse
 import java.util.function.Consumer
 
 

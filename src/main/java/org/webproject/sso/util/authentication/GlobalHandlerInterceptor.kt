@@ -5,11 +5,9 @@ import jakarta.servlet.http.HttpServletResponse
 import org.springframework.stereotype.Component
 import org.springframework.web.method.HandlerMethod
 import org.springframework.web.servlet.HandlerInterceptor
+import org.webproject.responsewrapper.custom.const.DEVICE_MODEL_HEADER
+import org.webproject.responsewrapper.custom.const.TOKEN_HEADER
 import org.webproject.sso.authentication.TokenManagement.parseToken
-import org.webproject.sso.util.DEVICE_MODEL_HEADER
-import org.webproject.sso.util.HASH_HEADER
-import org.webproject.sso.util.NONCE_HEADER
-import org.webproject.sso.util.TOKEN_HEADER
 import org.webproject.sso.util.annotations.FreeAuthentication
 import java.time.Instant
 import java.time.LocalDateTime

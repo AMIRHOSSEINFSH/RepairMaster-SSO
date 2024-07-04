@@ -101,6 +101,13 @@
             <scope>system</scope>
             <systemPath>${project.basedir}/lib/repairSystemprotobuf-0.0.1.jar</systemPath>
         </dependency>
+        <dependency>
+            <groupId>org.webproject</groupId>
+            <artifactId>responseWrapper</artifactId>
+            <version>0.0.1</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/responseWrapper-0.0.1.jar</systemPath>
+        </dependency>
 
     </dependencies>
 

@@ -1,7 +1,7 @@
 package org.webproject.sso.util.authentication
 
 import jakarta.servlet.http.HttpServletRequest
-import org.webproject.sso.DefaultSupportedException
+import org.webproject.responsewrapper.custom.exception.*
 import org.webproject.sso.authentication.TokenManagement
 
 fun HttpServletRequest.getTokenFromHeader(): TokenManagement.Token {

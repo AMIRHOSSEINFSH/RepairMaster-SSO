@@ -14,11 +14,10 @@ import org.webproject.sso.model.dto.UserDto
 import org.webproject.sso.model.dto.otp.OtpRequestModel
 import org.webproject.sso.model.dto.response.AuthenticationResponseModel
 import org.webproject.sso.model.dto.response.RegisterUserResponse
-import org.webproject.sso.service.SessionOptService
 import org.webproject.sso.service.UserService
-import org.webproject.sso.util.DEVICE_MODEL_HEADER
+import org.webproject.responsewrapper.custom.const.DEVICE_MODEL_HEADER
+import org.webproject.responsewrapper.custom.response.ResponseHandler
 import org.webproject.sso.util.annotations.FreeAuthentication
-import org.webproject.sso.util.authentication.ResponseHandler
 import org.webproject.sso.util.authentication.getTokenFromHeader
 
 @RestController
