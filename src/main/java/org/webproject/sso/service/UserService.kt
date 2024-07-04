@@ -3,9 +3,7 @@ package org.webproject.sso.service
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import org.webproject.sso.DefaultSupportedException
-import org.webproject.sso.SupportedMissMatchException
-import org.webproject.sso.SupportedReplayedException
+import org.webproject.responsewrapper.custom.exception.*
 import org.webproject.sso.authentication.CryptoHelper
 import org.webproject.sso.authentication.KeyExchange
 import org.webproject.sso.authentication.TokenManagement
