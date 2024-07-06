@@ -3,7 +3,8 @@ package org.webproject.sso.model.dto
     import jakarta.validation.constraints.Email
     import jakarta.validation.constraints.NotBlank
     import jakarta.validation.constraints.NotNull
-    import org.webproject.sso.model.enumModel.USERTYPE
+    import org.webproject.responsewrapper.enumModel.USERTYPE
+
     import org.webproject.sso.util.annotations.ValidUserType
 
 data class UserDto(
