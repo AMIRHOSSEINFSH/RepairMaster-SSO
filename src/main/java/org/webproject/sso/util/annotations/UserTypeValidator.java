@@ -3,7 +3,7 @@ package org.webproject.sso.util.annotations;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import org.webproject.sso.model.enumModel.USERTYPE;
+import org.webproject.responsewrapper.enumModel.USERTYPE;
 
 public class UserTypeValidator implements ConstraintValidator<ValidUserType, Integer> {
 

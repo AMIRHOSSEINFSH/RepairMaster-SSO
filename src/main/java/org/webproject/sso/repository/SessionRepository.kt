@@ -8,6 +8,6 @@ import java.util.UUID
 @Repository
 interface SessionRepository: JpaRepository<Session, UUID> {
 
-    fun findByDeviceOwner(deviceId: String): Session?
+    fun findByUserIdAndDeviceOwner(userId: UUID, deviceOwner: String): Session?
 
 }

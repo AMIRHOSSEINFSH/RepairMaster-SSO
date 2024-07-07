@@ -7,11 +7,12 @@ import org.webproject.grpcserver.proto.AuthenticationServiceGrpc
 import org.webproject.grpcserver.proto.Models
 import org.webproject.grpcserver.proto.Models.AuthenticationResponse
 import org.webproject.sso.authentication.TokenManagement.parseToken
+import org.webproject.sso.repository.SessionRepository
 import org.webproject.sso.repository.UserRepository
 
 @GrpcService
 class RpcAuthenticationService @Autowired constructor(
-    private val userRepository: UserRepository
+    private val sessionRepository: SessionRepository
 ) : AuthenticationServiceGrpc.AuthenticationServiceImplBase() {
 
 
@@ -21,24 +22,35 @@ class RpcAuthenticationService @Autowired constructor(
     ) {
         val itRawToken = request.token
         val token = parseToken(itRawToken)
-        if (token.isTokenExpired()) {
+        if (token.isTokenExpired() || request.deviceModel != token.deviceModel) {
             responseObserver.onNext(AuthenticationResponse.getDefaultInstance())
             responseObserver.onCompleted()
             return
         }
-        val itUserDb = userRepository.findById(token.sessionId)
-        if (!itUserDb.isPresent || itUserDb.get().token_count <= 0) {
+
+        val itSessionDb = sessionRepository.findByUserIdAndDeviceOwner(token.sessionId,request.deviceModel)
+
+        if(itSessionDb == null) {
             responseObserver.onNext(AuthenticationResponse.getDefaultInstance())
             responseObserver.onCompleted()
             return
         }
-        val user = itUserDb.get()
+
+
+        if (itSessionDb.user.token_count <= 0) {
+            responseObserver.onNext(AuthenticationResponse.getDefaultInstance())
+            responseObserver.onCompleted()
+            return
+        }
+
+        val user = itSessionDb.user
         responseObserver.onNext(
             AuthenticationResponse.newBuilder()
                 .setUserId(user.id.toString())
-                .setType(user.type.id.toString())
+                .setType(user.type.id)
                 .setFirstname(user.firstName)
                 .setLastname(user.lastName)
+                .setEmail(user.email)
                 .build()
         )
         responseObserver.onCompleted()
