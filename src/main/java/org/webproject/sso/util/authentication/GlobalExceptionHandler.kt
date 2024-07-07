@@ -54,6 +54,7 @@ class GlobalExceptionHandler {
     @ExceptionHandler(Exception::class)
     fun handleGenericException(ex: Exception): ResponseEntity<Any?> {
         val message = "An unexpected error occurred"
+        ex.printStackTrace()
         return generateResponse(message, HttpStatus.INTERNAL_SERVER_ERROR, null)
     }
 
