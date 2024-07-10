@@ -1,0 +1,48 @@
+services:
+  app-sso:
+    container_name: application-sso
+    image: app-sso:0.0.1
+    ports:
+      - 8081:8081
+    networks:
+      - postgres
+    depends_on:
+      - pgadmin
+
+  postgres:
+    container_name: postgres
+    image: postgres
+#    network_mode: service:app-sso
+    environment:
+      POSTGRES_USER: amirhosseinfsh
+      POSTGRES_PASSWORD: mysecretpassword
+      POSTGRES_DB: ssoDb
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/pgdata
+    restart: unless-stopped
+    networks:
+      - postgres
+
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    ports:
+      - "5050:80"
+    networks:
+      - postgres
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: amirhossein@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: amir1234
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+
+networks:
+  postgres:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  pgadmin_data:
