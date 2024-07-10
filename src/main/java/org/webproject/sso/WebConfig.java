@@ -11,6 +11,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     private final GlobalHandlerInterceptor globalHandlerInterceptor;
 
+    @Autowired
     public WebConfig(GlobalHandlerInterceptor globalHandlerInterceptor) {
         this.globalHandlerInterceptor = globalHandlerInterceptor;
     }
